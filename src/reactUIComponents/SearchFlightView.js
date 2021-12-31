@@ -21,12 +21,13 @@ export const FlightsSearch = () => {
   const dispatch = useDispatch()
 
   const [originText, setOriginText] = useState('');
-  const [destinationText, setDestinationText] = useState('')
-  const [passengersNumber, setPassengersNumber] = useState(1)
-  const [originSelected, setOriginSelected] = useState({})
-  const [originFiltered, setOriginFiltered] = useState([])
-  const [destinationSelected, setDestinationSelected] = useState({})
-  const [destiationFiltered, setDestinationFiltered] = useState([])
+  const [destinationText, setDestinationText] = useState('');
+  const [passengersNumber, setPassengersNumber] = useState(1);
+  const [originSelected, setOriginSelected] = useState({});
+  const [originFiltered, setOriginFiltered] = useState([]);
+  const [destinationSelected, setDestinationSelected] = useState({});
+  const [destiationFiltered, setDestinationFiltered] = useState([]);
+  const [flightsArray, setFlightsArray] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -39,12 +40,11 @@ export const FlightsSearch = () => {
 
   const airPports = useSelector(selectAirPorts, shallowEqual);
   console.log(airPports);
-  
+
 
   const handleOriginInput = event => {
     setOriginText(event.target.value);
     setOriginFiltered(filterBy(airPports, event.target.value));
-    console.log(originFiltered);
   }
   const handleDestinationInput = event => {
     setDestinationFiltered(filterBy(airPports, event.target.value))
@@ -54,14 +54,10 @@ export const FlightsSearch = () => {
     setPassengersNumber(event.target.value);
   }
   const handleSelectOriginChange = event => {
-    console.log(originFiltered[event.target.value]);
     setOriginText(originFiltered[event.target.value].name)
     setOriginSelected(originFiltered[event.target.value])
-    console.log(originSelected.name);
   }
   const handleSelectDestinationChange = event => {
-
-    console.log(event.target.value);
     setDestinationSelected(destiationFiltered[event.target.value]);
   }
   return (
@@ -117,9 +113,12 @@ export const FlightsSearch = () => {
         </div>
       </div>
         <div className='center'>
-          <CoreButton text="Agregar al carrito"/>
+          <CoreButton text="Continuar a horarios"/>
         </div>
-        
+
+        <div className='flightsList'>
+          <FlightInfo/>
+        </div>
 
     </div>
   )
@@ -158,6 +157,26 @@ const TextInput = props => {
       />
   </div>
 
+  )
+}
+
+const FlightInfo = ({origin = {}, destination = {}, dateInfo = {}}) => {
+  const handleFlightClick = e => {
+    console.log('clicked');
+  }
+  return (
+    <div className='flight-item' onClick={handleFlightClick}>
+      <div className='item'>
+        <div>{dateInfo.salida}</div>
+        {origin.iata_code}
+      </div>
+      <div className='arrow'>
+
+      </div>
+      <div className='item'>
+        {destination.iata_code}
+      </div>
+    </div>
   )
 }
 
