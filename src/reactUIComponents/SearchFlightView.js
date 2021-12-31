@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 
 import './styles.css'
 import React, { useEffect, useState }  from 'react';
@@ -5,8 +6,6 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {fetchAirports} from '../features/airports/fetched';
 import flighttakeoff from '../icons/flighttakeoff.svg';
 import flight_land_black from '../icons/flight_land_black.svg';
-import shoppingCart from '../icons/shoppingCart.svg'
-import airplane from '../icons/airplane.svg';
 import person from '../icons/person.svg'
 import {addedFlight} from '../features/ShoppingCar/shoppingCartSlice'
 
@@ -16,9 +15,6 @@ const filterBy = (array, word) => {
   return array.filter(city => {
     return city.name.toLowerCase().includes(word.toLowerCase()) || city.city_name.toLowerCase().includes(word.toLowerCase())
   })
-}
-const getCanContinue = (origin, destination) => {
-  return Boolean(origin.name && destination.name);
 }
 
 export const FlightsSearch = () => {
@@ -77,16 +73,6 @@ export const FlightsSearch = () => {
 
   return (
     <div className='container'>
-      <div className='header'>
-        <div className='center'>
-          <div className='center'>
-            <img src={airplane}></img>  AeroVictor
-          </div>
-        </div>
-        <div className='center'>
-          <img src={shoppingCart}></img>
-        </div>
-      </div>
       <div className='form'>
         <div className='input-container'>
           <span className='icon'>
@@ -194,7 +180,6 @@ const FlightInfo = ({ origin = {}, destination = {}, dateInfo = {}, persons = 1}
     </div>
   )
 }
-
 
 
 
