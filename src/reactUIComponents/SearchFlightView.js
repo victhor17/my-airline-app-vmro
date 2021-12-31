@@ -1,18 +1,24 @@
+
+import './styles.css'
 import React, { useEffect, useState }  from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {fetchAirports} from '../features/airports/fetched';
 import flighttakeoff from '../icons/flighttakeoff.svg';
 import flight_land_black from '../icons/flight_land_black.svg';
 import shoppingCart from '../icons/shoppingCart.svg'
-import './styles.css'
 import airplane from '../icons/airplane.svg';
 import person from '../icons/person.svg'
+import {addedFlight} from '../features/ShoppingCar/shoppingCartSlice'
 
 const selectAirPorts = state => state.airports.data;
+const selecFakeFlights = state => state.airports.horarios;
 const filterBy = (array, word) => {
   return array.filter(city => {
     return city.name.toLowerCase().includes(word.toLowerCase()) || city.city_name.toLowerCase().includes(word.toLowerCase())
   })
+}
+const getCanContinue = (origin, destination) => {
+  return Boolean(origin.name && destination.name);
 }
 
 export const FlightsSearch = () => {
@@ -28,6 +34,7 @@ export const FlightsSearch = () => {
   const [destinationSelected, setDestinationSelected] = useState({});
   const [destiationFiltered, setDestinationFiltered] = useState([]);
   const [flightsArray, setFlightsArray] = useState([]);
+  const [isCanContinue, setIsCanContinue] = useState(false)
 
   useEffect(() => {
     async function getData() {
@@ -39,7 +46,11 @@ export const FlightsSearch = () => {
 
 
   const airPports = useSelector(selectAirPorts, shallowEqual);
-  console.log(airPports);
+  const fakeFlights = useSelector(selecFakeFlights, shallowEqual);
+
+  useEffect(()=> {
+    setFlightsArray(fakeFlights)
+  }, [fakeFlights, flightsArray]);
 
 
   const handleOriginInput = event => {
@@ -51,15 +62,19 @@ export const FlightsSearch = () => {
     setDestinationText(event.target.value);
   }
   const handlePassengersInput = event => {
-    setPassengersNumber(event.target.value);
+    setPassengersNumber(Number(event.target.value));
   }
   const handleSelectOriginChange = event => {
     setOriginText(originFiltered[event.target.value].name)
     setOriginSelected(originFiltered[event.target.value])
+    setIsCanContinue(Boolean(originFiltered[event.target.value].name && destinationSelected.name));
   }
   const handleSelectDestinationChange = event => {
     setDestinationSelected(destiationFiltered[event.target.value]);
+    setDestinationText(destiationFiltered[event.target.value].name);
+    setIsCanContinue(Boolean(originSelected.name && destiationFiltered[event.target.value].name));
   }
+
   return (
     <div className='container'>
       <div className='header'>
@@ -112,29 +127,25 @@ export const FlightsSearch = () => {
           <TextInput onInputChange={handlePassengersInput} value={passengersNumber} label="Pasajeros" placeHolder="" inputType="number"/>
         </div>
       </div>
-        <div className='center'>
-          <CoreButton text="Continuar a horarios"/>
-        </div>
 
         <div className='flightsList'>
-          <FlightInfo/>
+          {isCanContinue ?
+            flightsArray.map((flight, index) => {
+              return <FlightInfo key={index} origin={originSelected} destination={destinationSelected} dateInfo={flight} persons={passengersNumber}/>
+            })
+          : ''}
         </div>
 
     </div>
   )
 }
 
-const CoreButton =({text}) => {
-
-  function handleClick(e) {
-    console.log('wiii');
-  }
-
+const CoreButton =({text, handleclick}) => {
   return (
     <div>
       <button
         className="button-default"
-        onClick={handleClick}
+        onClick={handleclick}
       >
         {text}
       </button>
@@ -160,12 +171,14 @@ const TextInput = props => {
   )
 }
 
-const FlightInfo = ({origin = {}, destination = {}, dateInfo = {}}) => {
-  const handleFlightClick = e => {
-    console.log('clicked');
+const FlightInfo = ({ origin = {}, destination = {}, dateInfo = {}, persons = 1}) => {
+  const dispatch = useDispatch()
+  const handleclick = () => {
+    dispatch(addedFlight({origin, destination, dateInfo, persons}))
   }
+
   return (
-    <div className='flight-item' onClick={handleFlightClick}>
+    <div className='flight-item'>
       <div className='item'>
         <div>{dateInfo.salida}</div>
         {origin.iata_code}
@@ -174,8 +187,10 @@ const FlightInfo = ({origin = {}, destination = {}, dateInfo = {}}) => {
 
       </div>
       <div className='item'>
+        <div>{dateInfo.llegada}</div>
         {destination.iata_code}
       </div>
+      <CoreButton handleclick={handleclick} text={"Agregar"}/>
     </div>
   )
 }

@@ -46,11 +46,14 @@ input {
 }
 
 .form {
+  padding-top: 56px;
   display: flex;
   flex-direction: column;
 
 }
 .header{
+  position: fixed;
+  width: 100%;
   background-color: #0b2343;
   display: flex;
   justify-content: space-between;
@@ -74,10 +77,8 @@ input {
   display: block;
   min-height: 2.625rem;
   min-width: 8rem;
-  align-self: center;
+  align-self: flex-end;
   font: inherit;
-  margin: 16px 8px;
-  padding: 0.25em .5em;
   border-width: 1px;
   border-style: solid;
   border-color: #d8d8d8;
@@ -89,13 +90,14 @@ input {
 .flightsList {
   display: flex;
   padding: 16px 32px;
+  flex-direction: column;
 }
 
 .flight-item {
   border: 1px solid #d8d8d8;
   align-items: center;
   width: 100%;
-  min-height: 80px;
+  min-height: 120px;
   display: flex;
   justify-content: space-evenly;
   flex-flow: row wrap;
@@ -106,8 +108,8 @@ input {
   min-width: 60%;
 }
 .item{
-  height: 100%;
-  width: 15%;
+  text-align: center;
+  width: 20%;
 }
 
 
