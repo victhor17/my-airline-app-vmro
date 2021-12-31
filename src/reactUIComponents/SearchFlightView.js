@@ -5,6 +5,8 @@ import flighttakeoff from '../icons/flighttakeoff.svg';
 import flight_land_black from '../icons/flight_land_black.svg';
 import shoppingCart from '../icons/shoppingCart.svg'
 import './styles.css'
+import airplane from '../icons/airplane.svg';
+import person from '../icons/person.svg'
 
 const selectAirPorts = state => state.airports.data;
 const filterBy = (array, word) => {
@@ -66,7 +68,9 @@ export const FlightsSearch = () => {
     <div className='container'>
       <div className='header'>
         <div className='center'>
-          Hola
+          <div className='center'>
+            <img src={airplane}></img>  AeroVictor
+          </div>
         </div>
         <div className='center'>
           <img src={shoppingCart}></img>
@@ -79,7 +83,7 @@ export const FlightsSearch = () => {
           </span>
           <TextInput inputType="select" value={originText} label="Origen" placeHolder="New York JFK" onInputChange={handleOriginInput}/>
           {originText.length ?
-            <select onChange={handleSelectOriginChange} value={originSelected.name}>
+            <select onChange={handleSelectOriginChange}>
               {originFiltered.map((city, index) =>
                 <option key={index} value={index}>{city.name} | {city.city_name}</option>
               )}
@@ -95,8 +99,10 @@ export const FlightsSearch = () => {
           </span>
           <TextInput value={destinationText} onInputChange={handleDestinationInput} label="Destino" placeHolder="CDMX MEX"/>
           {destinationText.length ?
-            <select onChange={handleSelectDestinationChange} value={destinationSelected}>
-
+            <select onChange={handleSelectDestinationChange}>
+              {destiationFiltered.map((city, index) =>
+                <option key={index} value={index}>{city.name} | {city.city_name}</option>
+              )}
             </select>
             :
             ''
@@ -105,16 +111,39 @@ export const FlightsSearch = () => {
 
         <div className='input-container'>
           <span className='icon'>
-            <img src={flight_land_black}></img>
+            <img src={person}></img>
           </span>
           <TextInput onInputChange={handlePassengersInput} value={passengersNumber} label="Pasajeros" placeHolder="" inputType="number"/>
         </div>
       </div>
+        <div className='center'>
+          <CoreButton text="Agregar al carrito"/>
+        </div>
+        
+
     </div>
   )
 }
 
-export const TextInput = props => {
+const CoreButton =({text}) => {
+
+  function handleClick(e) {
+    console.log('wiii');
+  }
+
+  return (
+    <div>
+      <button
+        className="button-default"
+        onClick={handleClick}
+      >
+        {text}
+      </button>
+    </div>
+  );
+};
+
+const TextInput = props => {
 
   return (
   <div className="input-div">
@@ -131,6 +160,7 @@ export const TextInput = props => {
 
   )
 }
+
 
 
 
