@@ -1,0 +1,72 @@
+.input-div {
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  min-width: 156px;
+  width: auto;
+  background-color: #fff;
+  border-radius: 4px 4px 0 0 ;
+  border: 1px solid #666;
+  border-bottom: 4px solid #666;
+  padding-left: 8px;
+}
+
+label {
+  display: block;
+  text-align: left;
+  opacity: 87%;
+  color: #000000 ;
+  font-size: .9rem ;
+}
+
+
+.inputText {
+  border: none;
+  text-align: left;
+  font-size: 1rem ;
+}
+
+input {
+  background-color: #fff ;
+  width: 90% ;
+  height: max-content;
+}
+
+.inputText:focus, .inputText:active {
+  outline: none;
+}
+.icon {
+  align-self: center;
+}
+
+.input-container {
+  display: flex;
+  margin:  0 16px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+}
+.header{
+  background-color: #0b2343;
+  display: flex;
+  justify-content: space-between;
+  height: 56px;
+  flex-grow: 1;
+}
+
+.center {
+  color: #fff;
+  margin: 0 16px ;
+  align-self: center;
+}
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+
