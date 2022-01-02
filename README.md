@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Proyecto de examen TRUE HOME VICTOR MANUEL ROMAN OROZCO :)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## [app](https://my-airline-app-vmro.web.app/) desplegada en hosting de firebase
 
-In the project directory, you can run:
+
+## PARA CORRER EL PROYECTO EN TU LOCAL SOLO DEBES CORRER ESTOS COMANDOS
+
+
+### `npm i`
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Se incluyen test para el slice 
+
+###  src/features/ShoppingCar/shoppingCartSlice.js en src/features/ShoppingCar/shoppingCartSlice.test.js
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Resumen del proyecto:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+La API la consumo de un JSON alojado en una `realtime database` de firebase, utilizando la herramienta que proporciona el mismo firebase, el JSON contiene un listado de unos 1,600 aeropuertos (solamente la info de la ciudad, nombre del aeropuerto, codigo, etc. Nada de info de horarios). Los horarios son 'fake' incrustados dentro del slice de `src/features/airports/airportsSlice.js`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+*nota: intenté usar axios para consumir un api púbica, pero no pude porque las respuestas de esas apis no tienen el header de allow-origin y no pude consumirlo desde la app :/, así que saqué los datos del api con postman y los subí a mi firebase
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Uso dos slices, uno para los aeropuertos y el otro para el carrito de compras, ambos están en `src/features`
 
-### `npm run eject`
+Cree dos archivos para las vistas, uno para la busqueda de vuelos y el otro es la del carrito de compras.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+En el header se puede navegar entre ambas vistas.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
