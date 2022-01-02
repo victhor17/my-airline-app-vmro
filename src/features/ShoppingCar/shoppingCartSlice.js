@@ -24,7 +24,7 @@ const shoppinCartSlice = createSlice({
   },
 });
 
-export const {addedFlight, deletedFlight, deletedAllFlights, BoughtCompleted} = shoppinCartSlice.actions;
+export const {addedFlight, deletedFlight, deletedAllFlights} = shoppinCartSlice.actions;
 export default shoppinCartSlice.reducer
 
 
