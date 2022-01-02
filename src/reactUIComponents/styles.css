@@ -105,11 +105,18 @@ input {
 .arrow {
   background-color: #0b2343;
   height: 3px;
-  min-width: 60%;
+  flex-basis: 20%;
+  width: 15%;
 }
 .item{
   text-align: center;
-  width: 20%;
+  flex-basis: 20%;
+  width: 15%;
+}
+
+.succes {
+  background-color: #277a3e;
+  color: #fff;
 }
 
 

@@ -71,6 +71,10 @@ export const FlightsSearch = () => {
     setIsCanContinue(Boolean(originSelected.name && destiationFiltered[event.target.value].name));
   }
 
+  const handleclickFligthAdd = (origin, destination, dateInfo, persons) => {
+    dispatch(addedFlight({origin, destination, dateInfo, persons}))
+  }
+
   return (
     <div className='container'>
       <div className='form'>
@@ -117,7 +121,7 @@ export const FlightsSearch = () => {
         <div className='flightsList'>
           {isCanContinue ?
             flightsArray.map((flight, index) => {
-              return <FlightInfo key={index} origin={originSelected} destination={destinationSelected} dateInfo={flight} persons={passengersNumber}/>
+              return <FlightInfo handleclick={handleclickFligthAdd} key={index} origin={originSelected} destination={destinationSelected} dateInfo={flight} persons={passengersNumber}/>
             })
           : ''}
         </div>
@@ -126,7 +130,7 @@ export const FlightsSearch = () => {
   )
 }
 
-const CoreButton =({text, handleclick}) => {
+export const CoreButton =({text, handleclick}) => {
   return (
     <div>
       <button
@@ -139,7 +143,7 @@ const CoreButton =({text, handleclick}) => {
   );
 };
 
-const TextInput = props => {
+export const TextInput = props => {
 
   return (
   <div className="input-div">
@@ -157,11 +161,7 @@ const TextInput = props => {
   )
 }
 
-const FlightInfo = ({ origin = {}, destination = {}, dateInfo = {}, persons = 1}) => {
-  const dispatch = useDispatch()
-  const handleclick = () => {
-    dispatch(addedFlight({origin, destination, dateInfo, persons}))
-  }
+export const FlightInfo = ({handleclick, origin = {}, destination = {}, dateInfo = {}, persons = 1, showPassengers = false, buttonText="Agregar", showButton = true}) => {
 
   return (
     <div className='flight-item'>
@@ -169,14 +169,23 @@ const FlightInfo = ({ origin = {}, destination = {}, dateInfo = {}, persons = 1}
         <div>{dateInfo.salida}</div>
         {origin.iata_code}
       </div>
-      <div className='arrow'>
+        <div className='arrow'>
 
-      </div>
+        </div>
       <div className='item'>
         <div>{dateInfo.llegada}</div>
         {destination.iata_code}
       </div>
-      <CoreButton handleclick={handleclick} text={"Agregar"}/>
+      <div className='item'>
+        <div>${dateInfo.cost}</div>
+      </div>
+      {showPassengers ?
+      <div className='item'>
+        Pasajeros: {persons}
+      </div> : ''}
+      {showButton ?
+      <CoreButton handleclick={() => handleclick(origin, destination, dateInfo, persons)} text={buttonText}/>
+      : ''}
     </div>
   )
 }
