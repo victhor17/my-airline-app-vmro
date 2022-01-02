@@ -15,6 +15,8 @@ export const CartView = () => {
   const [showRequestClientInfo, setShowRequestClientInfo] = useState(false);
   const [nameText, setNameText] = useState('');
   const [lastNameText, setLastNameText] = useState('');
+  const [emailText, setEmailText] = useState('');
+  const [isCanContinue, setIsCanContinue] = useState(false);
 
   const cartItems = useSelector(allCartItemsSelector, shallowEqual);
   useEffect(() => {
@@ -36,17 +38,24 @@ export const CartView = () => {
   }
 
   const handleChangeName = event => {
-    setNameText(event.target.value)
+    setNameText(event.target.value);
+    setIsCanContinue(Boolean(event.target.value && lastNameText && emailText))
   }
 
   const handleChangeLastName = event => {
-    setLastNameText(event.target.value)
+    setLastNameText(event.target.value);
+    setIsCanContinue(Boolean(event.target.value && nameText && emailText))
+  }
+
+  const handleEmailChange = event => {
+    setEmailText(event.target.value);
+    setIsCanContinue(Boolean(event.target.value && nameText && lastNameText))
   }
 
   return (
     <div className='form'>
     {isCanShowCart ?
-      <div className='form'>
+      <div className='form bottom'>
         <h1> Mis vuelos por reservar</h1>
         {cartArray.map((flight, index) => {
           return <FlightInfo key={index} handleclick={() => {handleDelteFlight(index)}} buttonText="Borrar" origin={flight.origin} destination={flight.destination} dateInfo={flight.dateInfo} persons={flight.persons} showPassengers/>
@@ -56,10 +65,13 @@ export const CartView = () => {
           <CoreButton handleclick={handleDeleteAll} text="Borrar todos"/>
         </div>
        {showRequestClientInfo ?
-       <div className='form'>
+       <div className='form fixed'>
          <TextInput value={nameText} onInputChange={handleChangeName} label="Nombre" placeHolder="Tony"/>
          <TextInput value={lastNameText} onInputChange={handleChangeLastName} label="Apellido" placeHolder="Stark"/>
-         <CoreButton handleclick={handleBuyAll} text="Terminar compra"/>
+         <TextInput value={emailText} onInputChange={handleEmailChange} label="correo" placeHolder="tony.stark@avengers.com"/>
+         <div className='icon'>
+          <CoreButton disabled={!isCanContinue} class="icon" handleclick={handleBuyAll} text="Terminar compra"/>
+         </div>
        </div> : ''}
       </div>
      : <div>

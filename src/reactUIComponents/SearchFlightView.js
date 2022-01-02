@@ -30,7 +30,7 @@ export const FlightsSearch = () => {
   const [destinationSelected, setDestinationSelected] = useState({});
   const [destiationFiltered, setDestinationFiltered] = useState([]);
   const [flightsArray, setFlightsArray] = useState([]);
-  const [isCanContinue, setIsCanContinue] = useState(false)
+  const [isCanContinue, setIsCanContinue] = useState(false);
 
   useEffect(() => {
     async function getData() {
@@ -130,10 +130,11 @@ export const FlightsSearch = () => {
   )
 }
 
-export const CoreButton =({text, handleclick}) => {
+export const CoreButton =({text, handleclick, disabled}) => {
   return (
     <div>
       <button
+        disabled={disabled}
         className="button-default"
         onClick={handleclick}
       >

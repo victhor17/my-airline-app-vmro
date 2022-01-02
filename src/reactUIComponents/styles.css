@@ -87,6 +87,9 @@ input {
   background-color: #237ABA;
 
 }
+.button-default:disabled {
+  opacity: .5;
+}
 .flightsList {
   display: flex;
   padding: 16px 32px;
@@ -117,6 +120,17 @@ input {
 .succes {
   background-color: #277a3e;
   color: #fff;
+}
+
+.fixed {
+  position: fixed;
+  padding: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.bottom {
+  padding-bottom: 216px;
 }
 
 
